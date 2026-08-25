@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quest: Aventura Aritmética</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            background: #111827;
+            border: 4px solid #6366f1;
+            border-radius: 15px;
+            padding: 30px;
+            width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1 { color: #818cf8; font-size: 24px; margin-bottom: 10px; }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #1f2937;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .question-box {
+            font-size: 20px;
+            margin-bottom: 20px;
+            background: #374151;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-option {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-option:hover { background: #4338ca; }
+        #feedback {
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            margin-bottom: 15px;
+        }
+        .correct { color: #34d399; }
+        .incorrect { color: #f87171; }
+        .btn-restart {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+        .btn-restart:hover { background: #047857; }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>🎮 Math Quest</h1>
+        <div class="stats">
+            <span id="question-counter">Pregunta: 1/10</span>
+            <span id="score-display">Puntaje: 0</span>
+        </div>
+
+        <div id="game-screen">
+            <div class="question-box" id="question-text">Cargando pregunta...</div>
+            <div class="options-grid" id="options-container"></div>
+            <div id="feedback"></div>
+        </div>
+
+        <button class="btn-restart" id="restart-btn" onclick=" reiniciarJuego()">Jugar de nuevo</button>
+    </div>
+
+    <script>
+        const preguntas = [
+            { q: "¿Cuánto es 12 + 15?", opciones: ["25", "27", "37", "22"], correcta: 1 },
+            { q: "¿Cuánto es 50 - 18?", opciones: ["32", "42", "28", "38"], correcta: 0 },
+            { q: "¿Cuánto es 7 × 8?", opciones: ["54", "56", "64", "48"], correcta: 1 },
+            { q: "¿Cuánto es 81 ÷ 9?", opciones: ["7", "8", "9", "6"], correcta: 2 },
+            { q: "¿Cuánto es 45 + 35?", opciones: ["70", "80", "90", "75"], correcta: 1 },
+            { q: "¿Cuánto es 100 - 45?", opciones: ["55", "65", "50", "60"], correcta: 0 },
+            { q: "¿Cuánto es 6 × 9?", opciones: ["52", "56", "54", "64"], correcta: 2 },
+            { q: "¿Cuánto es 72 ÷ 8?", opciones: ["8", "9", "7", "6"], correcta: 1 },
+            { q: "¿Cuánto es 14 + 26 - 5?", opciones: ["30", "35", "40", "45"], correcta: 1 },
+            { q: "¿Cuánto es (5 × 4) ÷ 2?", opciones: ["5", "20", "10", "15"], correcta: 2 }
+        ];
+
+        let preguntaActual = 0;
+        let puntaje = 0;
+        let bloqueado = false;
+
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const questionCounter = document.getElementById("question-counter");
+        const scoreDisplay = document.getElementById("score-display");
+        const feedback = document.getElementById("feedback");
+        const restartBtn = document.getElementById("restart-btn");
+
+        function cargarPregunta() {
+            bloqueado = false;
+            feedback.textContent = "";
+            if (preguntaActual < preguntas.length) {
+                const current = preguntas[preguntaActual];
+                questionCounter.textContent = `Pregunta: ${preguntaActual + 1}/10`;
+                scoreDisplay.textContent = `Puntaje: ${puntaje}`;
+                questionText.textContent = current.q;
+                
+                optionsContainer.innerHTML = "";
+                current.opciones.forEach((opcion, index) => {
+                    const btn = document.createElement("button");
+                    btn.classList.add("btn-option");
+                    btn.textContent = opcion;
+                    btn.onclick = () => verificarRespuesta(index, current.correcta);
+                    optionsContainer.appendChild(btn);
+                });
+            } else {
+                mostrarResultadoFinal();
+            }
+        }
+
+        function verificarRespuesta(seleccionada, correcta) {
+            if (bloqueado) return;
+            bloqueado = true;
+
+            if (seleccionada === correcta) {
+                puntaje++;
+                feedback.textContent = "¡Correcto! +1 punto 🌟";
+                feedback.className = "correct";
+            } else {
+                feedback.textContent = "¡Incorrecto! ❌";
+                feedback.className = "incorrect";
+            }
+
+            scoreDisplay.textContent = `Puntaje: ${puntaje}`;
+
+            setTimeout(() => {
+                preguntaActual++;
+                cargarPregunta();
+            }, 1200);
+        }
+
+        function mostrarResultadoFinal() {
+            questionText.textContent = "¡Juego Terminado! 🎉";
+            optionsContainer.innerHTML = "";
+            feedback.innerHTML = `Tu resultado final es: <br><strong>${puntaje} / 10</strong>`;
+            feedback.className = puntaje >= 6 ? "correct" : "incorrect";
+            questionCounter.textContent = "Completado";
+            restartBtn.style.display = "inline-block";
+        }
+
+        function reiniciarJuego() {
+            preguntaActual = 0;
+            puntaje = 0;
+            restartBtn.style.display = "none";
+            cargarPregunta();
+        }
+
+        // Inicializar el juego al cargar
+        cargarPregunta();
+    </script>
+</body>
+</html>

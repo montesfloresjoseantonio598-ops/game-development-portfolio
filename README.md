@@ -16,6 +16,10 @@ Aquí presento los videojuegos y prototipos que voy desarrollando, junto con inf
 *   [📄 Descripción](./games/coin-collector/README.md) 
 *   [🌐 Jugar ](https://montesfloresjoseantonio598-ops.github.io/game-development-portfolio/games/coin-collector/)
 
+### 🧮 Math Quest: Aventura Aritmética
+
+*   [📄 Ver descripción del juego](./games/math-adventure/)
+*   [🌐 Jugar directamente](https://montesfloresjoseantonio598-ops.github.io/game-development-portfolio/games/math-adventure/)
 ---
 
 ## 🛠️ Tecnologías
