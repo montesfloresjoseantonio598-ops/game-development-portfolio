@@ -13,7 +13,8 @@ Aquí presento los videojuegos y prototipos que voy desarrollando, junto con inf
 ## 🕹️ Mis proyectos
 
 ### 🪙 Coin Collector
-*   [📄 Descripción](./games/coin-collector/README.md) *   [🌐 Jugar ](https://montesfloresjoseantonio598-ops.github.io/game-development-portfolio/games/coin-collector/)
+*   [📄 Descripción](./games/coin-collector/README.md) 
+*   [🌐 Jugar ](https://montesfloresjoseantonio598-ops.github.io/game-development-portfolio/games/coin-collector/)
 
 ---
 
