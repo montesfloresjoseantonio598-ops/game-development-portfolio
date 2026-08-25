@@ -14,22 +14,8 @@ Aquí presento los videojuegos y prototipos que voy desarrollando, junto con inf
 
 ### 🪙 Coin Collector
 
-Un videojuego arcade en el que el jugador debe recoger todas las monedas antes de que se termine el tiempo.
-
-**Género:** Arcade  
-**Tecnologías:** HTML, CSS y JavaScript
-
-**Características:**
-
-- 🎮 Movimiento con WASD
-- 🪙 Sistema de monedas
-- 🏆 Sistema de puntuación
-- ⏱️ Temporizador
-- 🎉 Sistema de victoria
-- 💀 Sistema de Game Over
-- 🔄 Reinicio de partida
-
-👉 [Ver proyecto](./games/coin-collector/)
+*   [📄 Ver descripción del juego](./games/coin-collector/README.md)
+*   [🌐 Jugar directamente](https://montesfloresjoseantonio598-ops.github.io/game-development-portfolio/games/coin-collector/)
 
 ---
 
