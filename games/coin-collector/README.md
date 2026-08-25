@@ -1,3 +1,4 @@
+![Banner del juego Coin Collector](https://raw.githubusercontent.com/montesfloresjoseantonio598-ops/game-development-portfolio/main/banner/banner.png)
 # 🪙 Coin Collector
 
 ## 📖 Descripción
